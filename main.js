@@ -24,13 +24,24 @@ const prepareDOMElement = () => {
 };
 // funkcja ładująca nasłuchiwaczy eventów 
 const prepareDOMEvent = () => {
-    $addBtn.addEventListener('click', addTask)
+    $addBtn.addEventListener('click', addTask);
 };
 
 const addTask = () => {
     if ($todoInput.value !== '' ) {
         liElement = document.createElement('li');
+        divTools = document.createElement('div');
+        completeBtn = document.createElement('button');
+        editBtn = document.createElement('button');
+        deleteBtn = document.createElement('button');
         $ulList.appendChild(liElement).innerText = $todoInput.value;
+        liElement.appendChild(divTools).classList.add('tools');
+        divTools.appendChild(completeBtn).classList.add('complete');
+        divTools.appendChild(editBtn).classList.add('edit');
+        divTools.appendChild(deleteBtn).classList.add('delete');
+        completeBtn.innerHTML = '<i class="fas fa-check"></i>';
+        editBtn.innerText = 'EDIT';
+        deleteBtn.innerHTML = '<i class="fas fa-times"></i>';
         $todoInput.value = '';
         $alertInfo.innerText = 'Aktualne zadania:'
     }else{

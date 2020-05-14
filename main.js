@@ -21,34 +21,46 @@ const prepareDOMElement = () => {
     $addBtn = document.querySelector('.addBtn');
     $ulList = document.querySelector('.todoList ul');
     $alertInfo = document.querySelector('.alertInfo');
+    
 };
 // funkcja ładująca nasłuchiwaczy eventów 
 const prepareDOMEvent = () => {
     $addBtn.addEventListener('click', addTask);
+    $todoInput.addEventListener('keyup', checkEnter);
 };
-
+// funkcja dodająca zadania
 const addTask = () => {
     if ($todoInput.value !== '' ) {
         liElement = document.createElement('li');
-        divTools = document.createElement('div');
-        completeBtn = document.createElement('button');
-        editBtn = document.createElement('button');
-        deleteBtn = document.createElement('button');
+        $tools = document.createElement('div');
+        $complete = document.createElement('button');
+        $edit = document.createElement('button');
+        $delete = document.createElement('button');
         $ulList.appendChild(liElement).innerText = $todoInput.value;
-        liElement.appendChild(divTools).classList.add('tools');
-        divTools.appendChild(completeBtn).classList.add('complete');
-        divTools.appendChild(editBtn).classList.add('edit');
-        divTools.appendChild(deleteBtn).classList.add('delete');
-        completeBtn.innerHTML = '<i class="fas fa-check"></i>';
-        editBtn.innerText = 'EDIT';
-        deleteBtn.innerHTML = '<i class="fas fa-times"></i>';
+        liElement.appendChild($tools).classList.add('tools');
+        createTools();
         $todoInput.value = '';
-        $alertInfo.innerText = 'Aktualne zadania:'
+        $alertInfo.innerText = 'Aktualne zadania:';
     }else{
-        $alertInfo.innerText = 'Musisz wpisać zadanie..'
+        $alertInfo.innerText = 'Musisz wpisać zadanie..';
     }
 };
-
+//funkcja tworzy elementy tools i dodaje odpowiednie klasy
+const createTools = () => {
+    $tools.appendChild($complete).classList.add('complete');
+    $tools.appendChild($edit).classList.add('edit');
+    $tools.appendChild($delete).classList.add('delete');
+    $complete.innerHTML = '<i class="fas fa-check"></i>';
+    $edit.innerText = 'EDIT';
+    $delete.innerHTML = '<i class="fas fa-times"></i>';
+};
+// funkcja sprawdzająca czy naciśnięto enter i odpalająca funkcję dodającą zadanie
+const checkEnter = () => {
+    if (event.keyCode === 13) {
+        addTask();
+    };
+};
+//
 
 
 

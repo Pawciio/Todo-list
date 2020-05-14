@@ -1,14 +1,8 @@
 let $todoInput; // input służący do wprowadzania zadań
 let $addBtn; // button służący do zatwierdzania wprowadzonych zadań w todoInput 
-let $todoList; // div todoList przechowujący alertInfo i ulList
+let $ulList; // div todoList przechowujący alertInfo i ulList
 let $alertInfo; // paragraf pokazujący informacje o liscie
-
-let $tools; // div majacy listę zadań i tools
-let $complete; // przycisk służący do potwierdzania taska
-let $edit; // przycisk służący do edytowania taska
-let $delete; // przycisk służący do usuwania taska
-
-let $popup; // 
+let $newTask // przechowuje stworzone li
 
 // dunkcja main ładująca funkcje elementów i nasłuchiwaczy eventów
 const main = () => {
@@ -21,7 +15,6 @@ const prepareDOMElement = () => {
     $addBtn = document.querySelector('.addBtn');
     $ulList = document.querySelector('.todoList ul');
     $alertInfo = document.querySelector('.alertInfo');
-    
 };
 // funkcja ładująca nasłuchiwaczy eventów 
 const prepareDOMEvent = () => {
@@ -31,28 +24,29 @@ const prepareDOMEvent = () => {
 // funkcja dodająca zadania
 const addTask = () => {
     if ($todoInput.value !== '' ) {
-        liElement = document.createElement('li');
-        $tools = document.createElement('div');
-        $complete = document.createElement('button');
-        $edit = document.createElement('button');
-        $delete = document.createElement('button');
-        $ulList.appendChild(liElement).innerText = $todoInput.value;
-        liElement.appendChild($tools).classList.add('tools');
-        createTools();
+        $newTask = document.createElement('li');
+        $ulList.appendChild($newTask).innerText = $todoInput.value;
         $todoInput.value = '';
         $alertInfo.innerText = 'Aktualne zadania:';
+        createTools();
     }else{
         $alertInfo.innerText = 'Musisz wpisać zadanie..';
     }
 };
 //funkcja tworzy elementy tools i dodaje odpowiednie klasy
 const createTools = () => {
-    $tools.appendChild($complete).classList.add('complete');
-    $tools.appendChild($edit).classList.add('edit');
-    $tools.appendChild($delete).classList.add('delete');
-    $complete.innerHTML = '<i class="fas fa-check"></i>';
-    $edit.innerText = 'EDIT';
-    $delete.innerHTML = '<i class="fas fa-times"></i>';
+    const tools = document.createElement('div');
+    tools.classList.add('tools');
+    const completeBtn = document.createElement('button');
+    completeBtn.classList.add('complete');
+    tools.appendChild(completeBtn).innerHTML = '<i class="fas fa-check"></i>';
+    const editBtn = document.createElement('button');
+    editBtn.classList.add('edit');
+    tools.appendChild(editBtn).innerText = 'EDIT';
+    const deleteBtn = document.createElement('button');
+    deleteBtn.classList.add('delete');
+    tools.appendChild(deleteBtn).innerHTML = '<i class="fas fa-times"></i>';
+    $newTask.appendChild(tools);
 };
 // funkcja sprawdzająca czy naciśnięto enter i odpalająca funkcję dodającą zadanie
 const checkEnter = () => {
@@ -60,8 +54,6 @@ const checkEnter = () => {
         addTask();
     };
 };
-//
-
 
 
 // listenear ładujący funkcję main po załadowaniu wszystkich elementów DOM 

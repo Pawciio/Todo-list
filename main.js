@@ -19,13 +19,27 @@ const main = () => {
 const prepareDOMElement = () => {
     $todoInput = document.querySelector('.todoInput');
     $addBtn = document.querySelector('.addBtn');
-    $todoList = document.querySelector('.todoList');
+    $ulList = document.querySelector('.todoList ul');
     $alertInfo = document.querySelector('.alertInfo');
 };
 // funkcja ładująca nasłuchiwaczy eventów 
 const prepareDOMEvent = () => {
-
+    $addBtn.addEventListener('click', addTask)
 };
+
+const addTask = () => {
+    if ($todoInput.value !== '' ) {
+        liElement = document.createElement('li');
+        $ulList.appendChild(liElement).innerText = $todoInput.value;
+        $todoInput.value = '';
+        $alertInfo.innerText = 'Aktualne zadania:'
+    }else{
+        $alertInfo.innerText = 'Musisz wpisać zadanie..'
+    }
+};
+
+
+
 
 // listenear ładujący funkcję main po załadowaniu wszystkich elementów DOM 
 document.addEventListener('DOMContentLoaded', main);

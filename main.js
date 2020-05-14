@@ -20,6 +20,7 @@ const prepareDOMElement = () => {
 const prepareDOMEvent = () => {
     $addBtn.addEventListener('click', addTask);
     $todoInput.addEventListener('keyup', checkEnter);
+    $ulList.addEventListener('click', clickedButtonTools);
 };
 // funkcja dodająca zadania
 const addTask = () => {
@@ -53,6 +54,18 @@ const checkEnter = () => {
     if (event.keyCode === 13) {
         addTask();
     };
+};
+// Funkcja sprawdzająca który button z tools został kliknięty i uruchamia odpowieni kod
+const clickedButtonTools = (e) => {
+    if (e.target.closest('.complete')) {
+        e.target.closest('li').classList.toggle('completed');
+        e.target.closest('button').classList.toggle('completed');
+    }else if (e.target.closest('.edit')) {
+        console.log('edit');
+       
+    }else if (e.target.closest('.delete')) {
+        e.target.closest('li').remove();
+    }
 };
 
 

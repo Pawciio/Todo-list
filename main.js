@@ -2,7 +2,13 @@ let $todoInput; // input służący do wprowadzania zadań
 let $addBtn; // button służący do zatwierdzania wprowadzonych zadań w todoInput 
 let $ulList; // div todoList przechowujący alertInfo i ulList
 let $alertInfo; // paragraf pokazujący informacje o liscie
-let $newTask // przechowuje stworzone li
+let $newTask; // przechowuje stworzone li
+
+let $popup; // kontener div związany z edycją zadań
+let $popupInfo; // informacje dotyczące edytowanego tekstu zadania
+let $popupInput; // input pozwalający zmienić zawartość edytowanego zadania
+let $popupAccept; // button zatwierdzający zmiany edytowanego zadania
+let $popupCancel; // button anulujący zmiany dotyczące edytowanego zadania
 
 // dunkcja main ładująca funkcje elementów i nasłuchiwaczy eventów
 const main = () => {
@@ -15,12 +21,20 @@ const prepareDOMElement = () => {
     $addBtn = document.querySelector('.addBtn');
     $ulList = document.querySelector('.todoList ul');
     $alertInfo = document.querySelector('.alertInfo');
+
+    $popup = document.querySelector('.popup');
+    $popupInfo = document.querySelector('.popupInfo');
+    $popupInput = document.querySelector('.popupInput');
+    $popupAccept = document.querySelector('.accept');
+    $popupCancel = document.querySelector('.cancel');
 };
 // funkcja ładująca nasłuchiwaczy eventów 
 const prepareDOMEvent = () => {
     $addBtn.addEventListener('click', addTask);
     $todoInput.addEventListener('keyup', checkEnter);
     $ulList.addEventListener('click', clickedButtonTools);
+    $popupCancel.addEventListener('click', editCancel);
+    $popupAccept.addEventListener('click', editAccept);
 };
 // funkcja dodająca zadania
 const addTask = () => {
@@ -61,12 +75,26 @@ const clickedButtonTools = (e) => {
         e.target.closest('li').classList.toggle('completed');
         e.target.closest('button').classList.toggle('completed');
     }else if (e.target.closest('.edit')) {
-        console.log('edit');
-       
+        $popup.style.display = 'flex';
     }else if (e.target.closest('.delete')) {
         e.target.closest('li').remove();
     }
 };
+// Funkcja anlująca okno popup 
+const editCancel = () => {
+    $popup.style.display = 'none';
+};
+// Funkcja zatwierdzająca zmiany edytowanego zadania
+const editAccept = (e) => {
+    if ($popupInput.value !== '') {
+        
+        $popup.style.display = 'none';
+        $popupInput.value = ''
+    }else{
+        $popupInfo.innerText = 'Musisz podać nową treść zadania..';
+    }
+};
+
 
 
 // listenear ładujący funkcję main po załadowaniu wszystkich elementów DOM 

@@ -185,3 +185,17 @@ h1 {
     color: #fff;
     background-color: var(--light-blue);
 }
+
+/* test Style priority tasks
+.priority {
+    color: red;
+    padding: 15px 10px;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    transition: background-color .3s;
+}
+.priority:hover {
+    background-color: #ddd;
+}
+*/

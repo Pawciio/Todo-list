@@ -94,6 +94,7 @@ const editCancel = () => {
 const editAccept = () => {
     if ($popupInput.value !== '') {
         $newTask.innerText = $popupInput.value;
+        $newTask.classList.value = '';
         $popup.style.display = 'none';
         $popupInput.value = '';
         createTools();
@@ -101,15 +102,11 @@ const editAccept = () => {
         $popupInfo.innerText = 'Musisz podać nową treść zadania..';
     }
 };
-
+// funkcja sprawdzająca czy naciśnięto enter i odpalająca funkcję edytujące zadanie
 const checkEnterEdit = () => {
     if (event.keyCode === 13) {
         editAccept();
     };
-};
-
-const chcekStyle = () => {
-    
 };
 
 // listenear ładujący funkcję main po załadowaniu wszystkich elementów DOM 

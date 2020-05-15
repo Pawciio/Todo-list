@@ -3,12 +3,14 @@ let $addBtn; // button służący do zatwierdzania wprowadzonych zadań w todoIn
 let $ulList; // div todoList przechowujący alertInfo i ulList
 let $alertInfo; // paragraf pokazujący informacje o liscie
 let $newTask; // przechowuje stworzone li
-
 let $popup; // kontener div związany z edycją zadań
 let $popupInfo; // informacje dotyczące edytowanego tekstu zadania
 let $popupInput; // input pozwalający zmienić zawartość edytowanego zadania
 let $popupAccept; // button zatwierdzający zmiany edytowanego zadania
 let $popupCancel; // button anulujący zmiany dotyczące edytowanego zadania
+
+let $idNumber = 0;
+let $globalIdEditLi;
 
 // dunkcja main ładująca funkcje elementów i nasłuchiwaczy eventów
 const main = () => {
@@ -21,7 +23,6 @@ const prepareDOMElement = () => {
     $addBtn = document.querySelector('.addBtn');
     $ulList = document.querySelector('.todoList ul');
     $alertInfo = document.querySelector('.alertInfo');
-
     $popup = document.querySelector('.popup');
     $popupInfo = document.querySelector('.popupInfo');
     $popupInput = document.querySelector('.popupInput');
@@ -35,12 +36,15 @@ const prepareDOMEvent = () => {
     $ulList.addEventListener('click', clickedButtonTools);
     $popupCancel.addEventListener('click', editCancel);
     $popupAccept.addEventListener('click', editAccept);
+    $popupInput.addEventListener('keyup', checkEnterEdit);
 };
 // funkcja dodająca zadania
 const addTask = () => {
     if ($todoInput.value !== '' ) {
+        $idNumber++;
         $newTask = document.createElement('li');
-        $ulList.appendChild($newTask).innerText = $todoInput.value;
+        $newTask.setAttribute('id', `todo-${$idNumber}`);
+        $ulList.appendChild($newTask).innerText =  $todoInput.value;
         $todoInput.value = '';
         $alertInfo.innerText = 'Aktualne zadania:';
         createTools();
@@ -76,6 +80,7 @@ const clickedButtonTools = (e) => {
         e.target.closest('button').classList.toggle('completed');
     }else if (e.target.closest('.edit')) {
         $popup.style.display = 'flex';
+        $newTask = e.target.closest('li');
     }else if (e.target.closest('.delete')) {
         e.target.closest('li').remove();
     }
@@ -83,19 +88,29 @@ const clickedButtonTools = (e) => {
 // Funkcja anlująca okno popup 
 const editCancel = () => {
     $popup.style.display = 'none';
+    $popupInfo.innerText = '';
 };
 // Funkcja zatwierdzająca zmiany edytowanego zadania
-const editAccept = (e) => {
+const editAccept = () => {
     if ($popupInput.value !== '') {
-        
+        $newTask.innerText = $popupInput.value;
         $popup.style.display = 'none';
-        $popupInput.value = ''
+        $popupInput.value = '';
+        createTools();
     }else{
         $popupInfo.innerText = 'Musisz podać nową treść zadania..';
     }
 };
 
+const checkEnterEdit = () => {
+    if (event.keyCode === 13) {
+        editAccept();
+    };
+};
 
+const chcekStyle = () => {
+    
+};
 
 // listenear ładujący funkcję main po załadowaniu wszystkich elementów DOM 
 document.addEventListener('DOMContentLoaded', main);

@@ -186,16 +186,51 @@ h1 {
     background-color: var(--light-blue);
 }
 
-/* test Style priority tasks
+
+/* test Style priority tasks */
 .priority {
-    color: red;
     padding: 15px 10px;
     border: none;
     background-color: transparent;
     cursor: pointer;
     transition: background-color .3s;
 }
+
+.selectBox{
+    display: inline-block;
+}
+.selectPriority{
+    -webkit-appearance: none;
+    margin-top: 20px;
+    padding: 5px;
+    border-radius: 5px;
+    width: 170px;
+    color: var(--light-dark);
+    background-color: var(--light);
+}
+.selectPriorityCircle{
+    margin-right: 5px;
+}
+
 .priority:hover {
     background-color: #ddd;
 }
-*/
+
+.PriorityCircle{
+    display: inline-block;
+    flex-direction: column;
+    text-align: left;
+    margin-top: 10px;
+}
+.PriorityCircle button{
+    border-radius: 15px;
+}
+.priorityHight{
+    color: red;
+}
+.priorityMidly{
+    color: orange;
+}
+.priorityLower{
+    color: yellowgreen;
+}

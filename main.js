@@ -12,6 +12,10 @@ let $popupCancel; // button anulujący zmiany dotyczące edytowanego zadania
 let $idNumber = 0;
 let $globalIdEditLi;
 
+let $spanInputText;
+let $spanPriority;
+let $buttonPriority;
+
 // dunkcja main ładująca funkcje elementów i nasłuchiwaczy eventów
 const main = () => {
     prepareDOMElement();
@@ -44,13 +48,24 @@ const addTask = () => {
         $idNumber++;
         $newTask = document.createElement('li');
         $newTask.setAttribute('id', `todo-${$idNumber}`);
-        $ulList.appendChild($newTask).innerText =  $todoInput.value;
+        createPriorityCircle();
+        $spanInputText.innerText = $todoInput.value;
         $todoInput.value = '';
         $alertInfo.innerText = 'Aktualne zadania:';
         createTools();
     }else{
         $alertInfo.innerText = 'Musisz wpisać zadanie..';
     }
+};
+// Funkcja tworząca strukture span btnPriority 
+const createPriorityCircle = () => {
+    $spanInputText = document.createElement('span');
+    $spanPriority = document.createElement('span');
+    $buttonPriority = document.createElement('button');
+    $ulList.appendChild($newTask).appendChild($spanPriority).appendChild($buttonPriority);
+    $spanPriority.appendChild($spanInputText);
+    $buttonPriority.innerHTML = '<i class="fas fa-circle"></i>';
+    $buttonPriority.classList.add('priority');
 };
 //funkcja tworzy elementy tools i dodaje odpowiednie klasy
 const createTools = () => {
@@ -108,6 +123,7 @@ const checkEnterEdit = () => {
         editAccept();
     };
 };
+
 
 // listenear ładujący funkcję main po załadowaniu wszystkich elementów DOM 
 document.addEventListener('DOMContentLoaded', main);

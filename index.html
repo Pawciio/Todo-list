@@ -13,15 +13,38 @@
         <div class="header">
             <h1>ToDo List</h1>
             <input type="text" class="todoInput" placeholder="Wpisz treść zadania...">
-            <button class="addBtn">Add</button>
+            <button class="addBtn">Dodaj</button>
+            <div class="selectBox">
+                <span class="selectPriorityCircle"><i class="fas fa-circle"></i></span>
+                <select class="selectPriority">
+                    <option disabled selected hidden>Wybierz priorytet</option>
+                    <option><i class="priorityHight fas fa-circle"></i>Wysoki priorytet</option>
+                    <option><i class="priorityMidly fas fa-circle"></i>Średni priorytet</option>
+                    <option><i class="priorityLower fas fa-circle"></i>Niski priorytet</option>
+                </select>
+            </div>
+            
+            <!--
+            <div class="PriorityCircle">
+                <button class="priority"><i class="priorityHight fas fa-circle"></i> Wysoki priorytet</button>
+                <button class="Priority"><i class="priorityMidly fas fa-circle"></i> Średni priorytet</button>
+                <button class="Priority"><i class="priorityLower fas fa-circle"></i> Niski priorytet</button>
+            </div>
+            -->
         </div>
         <div class="todoList">
             <h3>Lista zadań:</h3>
             <p class="alertInfo">Brak zadań na liście.</p>
             <ul>
-                <!--  
+            <!--
+                <li id='test'>Przykładowe zadanie na pokaz</span> <div class="tools"><button class="complete"><i
+                    class="fas fa-check"></i></button><button class="edit">EDIT</button><button
+                    class="delete"><i class="fas fa-times"></i></button>
+                    </div>
+                </li>
+            -->
                 <div class="PriorityHigh">  
-                    <li id='test'><span><button class="priority"><i class="fas fa-circle"></i></button> Przykładowe zadanie na pokaz</span> <div class="tools"><button class="complete"><i
+                    <li id='test'><span><button class="priority"><i class="fas fa-circle"></i></button><span> Przykładowe zadanie na pokaz</span></span><div class="tools"><button class="complete"><i
                     class="fas fa-check"></i></button><button class="edit">EDIT</button><button
                     class="delete"><i class="fas fa-times"></i></button>
                     </div>
@@ -33,7 +56,7 @@
                 <div class="PriorityLow">
                     
                 </div>
-                    -->
+                    
             </ul>
         </div>
     </div>

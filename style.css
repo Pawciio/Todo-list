@@ -206,7 +206,8 @@ h1 {
     width: 170px;
     color: var(--light-dark);
     background-color: var(--light);
-}   
+}
+
 .selectPriorityCircle{
     margin-right: 5px;
 }

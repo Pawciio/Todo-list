@@ -20,6 +20,9 @@ let $buttonPriority;
 let select;
 let $selectPriorityCircle; // circle priorytetu obok okna select
 
+let $divPriorityLow;
+let $divPriorityMid;
+let $divPriorityHigh;
 
 // dunkcja main ładująca funkcje elementów i nasłuchiwaczy eventów
 const main = () => {
@@ -41,6 +44,10 @@ const prepareDOMElement = () => {
     $selectPriorityCircle = document.querySelector('.selectPriorityCircle');
     $spanCircleSelect = document.querySelector('.spanCircleSelect');
     select = document.querySelector('#select');
+    //divpriority
+    $divPriorityHigh = document.querySelector('.divPriorityHigh');
+    $divPriorityMid = document.querySelector('.divPriorityMid');
+    $divPriorityLow = document.querySelector('.divPriorityLow');
 };
 // funkcja ładująca nasłuchiwaczy eventów 
 const prepareDOMEvent = () => {
@@ -77,13 +84,7 @@ const createPriorityCircle = () => {
     $spanPriority.appendChild($spanInputText);
     $buttonPriority.innerHTML = '<i class="fas fa-circle"></i>';
     $buttonPriority.classList.add('priority');
-    if (select.options[1].selected) {
-        $buttonPriority.classList.add('priorityHight');
-    }else if (select.options[2].selected) {
-        $buttonPriority.classList.add('priorityMidly');
-    }else if (select.options[3].selected) {
-        $buttonPriority.classList.add('priorityLower');
-    }
+    selectedPriority();
 };
 //funkcja tworzy elementy tools i dodaje odpowiednie klasy
 const createTools = () => {
@@ -123,6 +124,16 @@ const editCancel = () => {
     $popup.style.display = 'none';
     $popupInfo.innerText = '';
 };
+// funkcja zmieniający kolor priority tasku
+const selectedPriority = () => {
+    if (select.options[1].selected) {
+        $buttonPriority.classList.add('priorityHight');
+    }else if (select.options[2].selected) {
+        $buttonPriority.classList.add('priorityMidly');
+    }else {
+        $buttonPriority.classList.add('priorityLower');
+    }
+};
 // Funkcja zatwierdzająca zmiany edytowanego zadania
 const editAccept = () => {
     if ($popupInput.value !== '') {
@@ -151,21 +162,15 @@ function changePriorityColorInSelect () {
         $selectPriorityCircle.classList.add('priorityMidly');
         $selectPriorityCircle.classList.remove('priorityHight');
         $selectPriorityCircle.classList.remove('priorityLower');
-    }else if (select.options[3]) {
+    }else if (select.options[3].selected) {
         $selectPriorityCircle.classList.add('priorityLower');
         $selectPriorityCircle.classList.remove('priorityMidly');
         $selectPriorityCircle.classList.remove('priorityHight');
     }
-    // else{
-    //     select.value = select.options[0].innerText;
-    //     $selectPriorityCircle.style.color = 'black';
-    //     $selectPriorityCircle.classList.remove('priorityLower');
-    //     $selectPriorityCircle.classList.remove('priorityMidly');
-    //     $selectPriorityCircle.classList.remove('priorityHight');
-    // }
 };
 
 
 // listenear ładujący funkcję main po załadowaniu wszystkich elementów DOM 
 document.addEventListener('DOMContentLoaded', main);
+// listenear aktualizujący kolor priorityCircle w zależności od wyboru zwłaszcza po przeładowaniu strony bez resetu select
 document.addEventListener('DOMContentLoaded', changePriorityColorInSelect);

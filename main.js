@@ -16,6 +16,11 @@ let $spanInputText;
 let $spanPriority;
 let $buttonPriority;
 
+//Priority Select
+let select;
+let $selectPriorityCircle; // circle priorytetu obok okna select
+
+
 // dunkcja main ładująca funkcje elementów i nasłuchiwaczy eventów
 const main = () => {
     prepareDOMElement();
@@ -32,6 +37,10 @@ const prepareDOMElement = () => {
     $popupInput = document.querySelector('.popupInput');
     $popupAccept = document.querySelector('.accept');
     $popupCancel = document.querySelector('.cancel');
+    //Priority
+    $selectPriorityCircle = document.querySelector('.selectPriorityCircle');
+    $spanCircleSelect = document.querySelector('.spanCircleSelect');
+    select = document.querySelector('#select');
 };
 // funkcja ładująca nasłuchiwaczy eventów 
 const prepareDOMEvent = () => {
@@ -41,6 +50,8 @@ const prepareDOMEvent = () => {
     $popupCancel.addEventListener('click', editCancel);
     $popupAccept.addEventListener('click', editAccept);
     $popupInput.addEventListener('keyup', checkEnterEdit);
+
+    select.addEventListener('click', changePriorityColorInSelect);
 };
 // funkcja dodająca zadania
 const addTask = () => {
@@ -66,6 +77,13 @@ const createPriorityCircle = () => {
     $spanPriority.appendChild($spanInputText);
     $buttonPriority.innerHTML = '<i class="fas fa-circle"></i>';
     $buttonPriority.classList.add('priority');
+    if (select.options[1].selected) {
+        $buttonPriority.classList.add('priorityHight');
+    }else if (select.options[2].selected) {
+        $buttonPriority.classList.add('priorityMidly');
+    }else if (select.options[3].selected) {
+        $buttonPriority.classList.add('priorityLower');
+    }
 };
 //funkcja tworzy elementy tools i dodaje odpowiednie klasy
 const createTools = () => {
@@ -124,6 +142,30 @@ const checkEnterEdit = () => {
     };
 };
 
+function changePriorityColorInSelect () {
+    if (select.options[1].selected) {
+        $selectPriorityCircle.classList.add('priorityHight');
+        $selectPriorityCircle.classList.remove('priorityMidly');
+        $selectPriorityCircle.classList.remove('priorityLower');
+    }else if (select.options[2].selected) {
+        $selectPriorityCircle.classList.add('priorityMidly');
+        $selectPriorityCircle.classList.remove('priorityHight');
+        $selectPriorityCircle.classList.remove('priorityLower');
+    }else if (select.options[3]) {
+        $selectPriorityCircle.classList.add('priorityLower');
+        $selectPriorityCircle.classList.remove('priorityMidly');
+        $selectPriorityCircle.classList.remove('priorityHight');
+    }
+    // else{
+    //     select.value = select.options[0].innerText;
+    //     $selectPriorityCircle.style.color = 'black';
+    //     $selectPriorityCircle.classList.remove('priorityLower');
+    //     $selectPriorityCircle.classList.remove('priorityMidly');
+    //     $selectPriorityCircle.classList.remove('priorityHight');
+    // }
+};
+
 
 // listenear ładujący funkcję main po załadowaniu wszystkich elementów DOM 
 document.addEventListener('DOMContentLoaded', main);
+document.addEventListener('DOMContentLoaded', changePriorityColorInSelect);
